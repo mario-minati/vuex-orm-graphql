@@ -1081,4 +1081,162 @@ query status {
       expect(user.$isPersisted).toBeTruthy();
     });
   });
+
+
+  describe('Relations', () => {
+    describe('One To One', async () => {
+      it('works', async () => {
+        const response = {
+          data: {
+            user: {
+              __typename: 'user',
+              id: 1,
+              name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
+            }
+          }
+        };
+
+        const request = await sendWithMockFetch(response, async () => {
+          await User.fetch(1);
+        });
+
+        const user = User.query().withAllRecursive().find(1);
+        expect(user.name).toEqual('Johnny Imba');
+        expect(user.profile).not.toEqual(null);
+        expect(user.profile.sex).toEqual(true);
+        expect(user.profile.email).toEqual('johnny@rocks.com');
+      });
+    });
+
+    describe('One To Many', async () => {
+      it('works', async () => {
+        // TODO
+      });
+    });
+
+    describe('Has Many Through', async () => {
+      it('works', async () => {
+        const response = {
+          data: {
+            tariffs: {
+              __typename: 'tariff',
+              nodes: [{
+                __typename: 'tariff',
+                id: 1,
+                tariffType: 'dsl',
+                name: 'Tariff S',
+                displayName: 'Tariff S',
+                slug: 'tariff-s',
+                checked: false,
+                tariffOptions: {
+                  __typename: 'tariffOption',
+                  nodes: [
+                    {
+                      __typename: 'tariffOption',
+                      id: 1,
+                      name: 'Foo Bar 1',
+                      description: 'Very foo, much more bar'
+                    }
+                  ]
+                }
+              }]
+            }
+          }
+        };
+
+        const request = await sendWithMockFetch(response, async () => {
+          await Tariff.fetch();
+        });
+
+        const tariff = Tariff.query().withAllRecursive().find(1);
+        expect(tariff.name).toEqual('Tariff S');
+        expect(tariff.tariffOptions).not.toEqual(null);
+        expect(tariff.tariffOptions.length).not.toEqual(0);
+        expect(tariff.tariffOptions[0].name).toEqual('Foo Bar 1');
+        expect(tariff.tariffOptions[0].tariffs).not.toEqual(null);
+        expect(tariff.tariffOptions[0].tariffs[0].name).toEqual('Tariff S');
+      });
+    });
+
+    describe('Polymorphic One To One', async () => {
+      it('works', async () => {
+        // TODO
+      });
+    });
+
+    describe('Polymorphic One To Many', async () => {
+      it('works', async () => {
+        const response = {
+          data: {
+            post: {
+              __typename: 'post',
+              id: 42,
+              otherId: 13548,
+              published: true,
+              title: 'Example Post 5',
+              content: 'Foo',
+              comments: {
+                __typename: 'comment',
+                nodes: [{
+                  __typename: 'comment',
+                  id: 15,
+                  content: 'Works!',
+                  subjectId: 42,
+                  subjectType: 'Post',
+                  user: {
+                    __typename: 'user',
+                    id: 2,
+                    name: 'Charly Brown',
+                    profile: {
+                      __typename: 'profile',
+                      id: 2,
+                      sex: true,
+                      age: 8,
+                      email: 'charly@peanuts.com'
+                    }
+                  }
+                }]
+              },
+              user: {
+                __typename: 'user',
+                id: 1,
+                name: 'Johnny Imba',
+                profile: {
+                  __typename: 'profile',
+                  id: 1,
+                  sex: true,
+                  age: 36,
+                  email: 'johnny@rocks.com'
+                }
+              }
+            }
+          }
+        };
+
+        let request = await sendWithMockFetch(response, async () => {
+          await Post.fetch(42);
+        });
+
+        const post = Post.query().withAllRecursive().find(42);
+        expect(post.user).not.toEqual(null);
+        expect(post.comments).not.toEqual(null);
+        expect(post.comments.length).not.toEqual(0);
+        expect(post.user.name).toEqual('Johnny Imba');
+        expect(post.comments[0].content).toEqual('Works!');
+      });
+    });
+
+    describe('Polymorphic Many To Many', async () => {
+      it('works', async () => {
+        // TODO
+      });
+    });
+  })
 });

@@ -98,6 +98,7 @@ export class TariffTariffOption extends ORMModel {
 
 export class Tariff extends ORMModel {
   static entity = 'tariffs';
+  static eagerLoad = ['tariffOptions'];
 
   static fields () {
     return {
@@ -116,6 +117,7 @@ export class Tariff extends ORMModel {
 
 export class TariffOption extends ORMModel {
   static entity = 'tariffOptions';
+  static eagerLoad = ['tariffs'];
 
   static fields () {
     return {
