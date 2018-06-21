@@ -31,7 +31,14 @@ describe('VuexORMGraphQL', () => {
               user: {
                 __typename: 'user',
                 id: 2,
-                name: 'Charly Brown'
+                name: 'Charly Brown',
+                profile: {
+                  __typename: 'profile',
+                  id: 2,
+                  sex: true,
+                  age: 8,
+                  email: 'charly@peanuts.com'
+                }
               }
             }]
           },
@@ -39,6 +46,13 @@ describe('VuexORMGraphQL', () => {
             __typename: 'user',
             id: 1,
             name: 'Johnny Imba',
+            profile: {
+              __typename: 'profile',
+              id: 1,
+              sex: true,
+              age: 36,
+              email: 'johnny@rocks.com'
+            }
           }
         }
       }
@@ -77,7 +91,14 @@ describe('VuexORMGraphQL', () => {
                 user: {
                   __typename: 'user',
                   id: 2,
-                  name: 'Charly Brown'
+                  name: 'Charly Brown',
+                  profile: {
+                    __typename: 'profile',
+                    id: 1,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               }]
             },
@@ -85,6 +106,13 @@ describe('VuexORMGraphQL', () => {
               __typename: 'user',
               id: 1,
               name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         }
@@ -106,6 +134,13 @@ query Post($id: ID!) {
     user {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     comments {
@@ -117,6 +152,13 @@ query Post($id: ID!) {
         user {
           id
           name
+          profile {
+            id
+            email
+            age
+            sex
+            __typename
+          }
           __typename
         }
         __typename
@@ -142,7 +184,14 @@ query Post($id: ID!) {
             user: {
               __typename: 'user',
               id: 1,
-              name: 'Johnny Imba'
+              name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 1,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         };
@@ -169,7 +218,14 @@ query Post($id: ID!) {
             user: {
               __typename: 'user',
               id: 1,
-              name: 'Johnny Imba'
+              name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         };
@@ -184,6 +240,13 @@ query User($id: ID!) {
   user(id: $id) {
     id
     name
+    profile {
+      id
+      email
+      age
+      sex
+      __typename
+    }
     __typename
   }
 }
@@ -201,7 +264,14 @@ query User($id: ID!) {
                 {
                   __typename: 'user',
                   id: 1,
-                  name: 'Charlie Brown'
+                  name: 'Charlie Brown',
+                  profile: {
+                    __typename: 'profile',
+                    id: 2,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               ]
             }
@@ -219,6 +289,13 @@ query Users($active: Boolean!) {
     nodes {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     __typename
@@ -238,7 +315,14 @@ query Users($active: Boolean!) {
                 {
                   __typename: 'user',
                   id: 1,
-                  name: 'Charlie Brown'
+                  name: 'Charlie Brown',
+                  profile: {
+                    __typename: 'profile',
+                    id: 2,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               ]
             }
@@ -256,6 +340,13 @@ query Users {
     nodes {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     __typename
@@ -289,7 +380,14 @@ query Users {
                 user: {
                   __typename: 'user',
                   id: 2,
-                  name: 'Charly Brown'
+                  name: 'Charly Brown',
+                  profile: {
+                    __typename: 'profile',
+                    id: 2,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               }]
             },
@@ -297,6 +395,13 @@ query Users {
               __typename: 'user',
               id: 1,
               name: 'Charlie Brown',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 8,
+                email: 'charly@peanuts.com'
+              }
             }
           }
         }
@@ -317,7 +422,14 @@ query Users {
           userId: 1,
           user: {
             id: 1,
-            name: 'Charlie Brown'
+            name: 'Charlie Brown',
+            profileId: 1,
+            profile: {
+              id: 1,
+              sex: true,
+              age: 8,
+              email: 'charly@peanuts.com'
+            }
           }
         }
       });
@@ -334,6 +446,13 @@ mutation CreatePost($post: PostInput!) {
     user {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     comments {
@@ -345,6 +464,13 @@ mutation CreatePost($post: PostInput!) {
         user {
           id
           name
+          profile {
+            id
+            email
+            age
+            sex
+            __typename
+          }
           __typename
         }
         __typename
@@ -366,7 +492,14 @@ mutation CreatePost($post: PostInput!) {
           updateUser: {
             __typename: 'user',
             id: 1,
-            name: 'Snoopy'
+            name: 'Snoopy',
+            profile: {
+              __typename: 'profile',
+              id: 2,
+              sex: true,
+              age: 11,
+              email: 'snoopy@peanuts.com'
+            }
           }
         }
       };
@@ -378,12 +511,19 @@ mutation CreatePost($post: PostInput!) {
         await user.$push();
       });
 
-      expect(request.variables).toEqual({ id: 1, user: { id: 1, name: 'Snoopy' } });
+      expect(request.variables).toEqual({ id: 1, user: { id: 1, name: 'Snoopy', profileId: 1 } });
       expect(request.query).toEqual(`
 mutation UpdateUser($id: ID!, $user: UserInput!) {
   updateUser(id: $id, user: $user) {
     id
     name
+    profile {
+      id
+      email
+      age
+      sex
+      __typename
+    }
     __typename
   }
 }
@@ -414,7 +554,14 @@ mutation UpdateUser($id: ID!, $user: UserInput!) {
                 user: {
                   __typename: 'user',
                   id: 2,
-                  name: 'Charly Brown'
+                  name: 'Charly Brown',
+                  profile: {
+                    __typename: 'profile',
+                    id: 2,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               }]
             },
@@ -422,6 +569,13 @@ mutation UpdateUser($id: ID!, $user: UserInput!) {
               __typename: 'user',
               id: 1,
               name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 1,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         }
@@ -444,6 +598,13 @@ mutation DeletePost($id: ID!) {
     user {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     comments {
@@ -455,6 +616,13 @@ mutation DeletePost($id: ID!) {
         user {
           id
           name
+          profile {
+            id
+            email
+            age
+            sex
+            __typename
+          }
           __typename
         }
         __typename
@@ -490,6 +658,13 @@ mutation DeletePost($id: ID!) {
                   __typename: 'user',
                   id: 2,
                   name: 'Johnny Imba',
+                  profile: {
+                    __typename: 'profile',
+                    id: 2,
+                    sex: true,
+                    age: 8,
+                    email: 'charly@peanuts.com'
+                  }
                 }
               }
             ],
@@ -515,6 +690,13 @@ query UnpublishedPosts($userId: ID!) {
       user {
         id
         name
+        profile {
+          id
+          email
+          age
+          sex
+          __typename
+        }
         __typename
       }
       comments {
@@ -526,6 +708,13 @@ query UnpublishedPosts($userId: ID!) {
           user {
             id
             name
+            profile {
+              id
+              email
+              age
+              sex
+              __typename
+            }
             __typename
           }
           __typename
@@ -559,6 +748,13 @@ query UnpublishedPosts($userId: ID!) {
               __typename: 'user',
               id: 2,
               name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         }
@@ -581,6 +777,13 @@ query Example($userId: ID!, $id: ID!) {
     user {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     comments {
@@ -592,6 +795,13 @@ query Example($userId: ID!, $id: ID!) {
         user {
           id
           name
+          profile {
+            id
+            email
+            age
+            sex
+            __typename
+          }
           __typename
         }
         __typename
@@ -626,6 +836,13 @@ query Example($userId: ID!, $id: ID!) {
               __typename: 'user',
               id: 1,
               name: 'Johnny Imba',
+              profile: {
+                __typename: 'profile',
+                id: 2,
+                sex: true,
+                age: 36,
+                email: 'johnny@rocks.com'
+              }
             }
           }
         }
@@ -648,6 +865,13 @@ mutation UpvotePost($captchaToken: String!, $id: ID!) {
     user {
       id
       name
+      profile {
+        id
+        email
+        age
+        sex
+        __typename
+      }
       __typename
     }
     comments {
@@ -659,6 +883,13 @@ mutation UpvotePost($captchaToken: String!, $id: ID!) {
         user {
           id
           name
+          profile {
+            id
+            email
+            age
+            sex
+            __typename
+          }
           __typename
         }
         __typename
@@ -781,6 +1012,13 @@ query status {
             __typename: 'user',
             id: 15,
             name: 'Snoopy',
+            profile: {
+              __typename: 'profile',
+              id: 2,
+              sex: true,
+              age: 11,
+              email: 'snoopy@peanuts.com'
+            },
             posts: {
               __typename: 'post',
               nodes: []
@@ -805,6 +1043,13 @@ query status {
             __typename: 'user',
             id: 1,
             name: 'Johnny Imba',
+            profile: {
+              __typename: 'profile',
+              id: 2,
+              sex: true,
+              age: 36,
+              email: 'johnny@rocks.com'
+            },
             posts: {
               __typename: 'post',
               nodes: [
